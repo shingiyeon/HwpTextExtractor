@@ -74,7 +74,7 @@ class HwpReader(object):
         plain_txt = ''
 
         while True:
-            header = stream.head(4)
+            header = stream.read(4)
             if not header:
                 break
             header = struct.unpack('<I', header)[0]
@@ -110,7 +110,7 @@ class HwpReader(object):
                         control_char = ord(searched.group(1))
                         control_char_size = control_char_table[control_char][1].size
 
-                        if control_char = '0x0a':
+                        if control_char == '0x0a':
                             text += '\n'
                         cursor_idx = pos + control_char_size * 2
                 else:
@@ -119,7 +119,7 @@ class HwpReader(object):
                     break
             if tag_id == 67:
                 plain_txt += text + "\n"
-        return plain_text
+        return plain_txt
 
     @property
     def hwp2txt(self):
